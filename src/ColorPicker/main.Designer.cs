@@ -79,7 +79,7 @@
             this.xPosition.AutoSize = true;
             this.xPosition.BackColor = System.Drawing.Color.Transparent;
             this.xPosition.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xPosition.ForeColor = System.Drawing.Color.White;
+            this.xPosition.ForeColor = System.Drawing.Color.Black;
             this.xPosition.Location = new System.Drawing.Point(13, 153);
             this.xPosition.Name = "xPosition";
             this.xPosition.Size = new System.Drawing.Size(19, 17);
@@ -91,7 +91,7 @@
             this.yPosition.AutoSize = true;
             this.yPosition.BackColor = System.Drawing.Color.Transparent;
             this.yPosition.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yPosition.ForeColor = System.Drawing.Color.White;
+            this.yPosition.ForeColor = System.Drawing.Color.Black;
             this.yPosition.Location = new System.Drawing.Point(71, 153);
             this.yPosition.Name = "yPosition";
             this.yPosition.Size = new System.Drawing.Size(19, 17);
@@ -102,7 +102,7 @@
             // 
             this.rgbText.AutoSize = true;
             this.rgbText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rgbText.ForeColor = System.Drawing.Color.White;
+            this.rgbText.ForeColor = System.Drawing.Color.Black;
             this.rgbText.Location = new System.Drawing.Point(325, 17);
             this.rgbText.Name = "rgbText";
             this.rgbText.Size = new System.Drawing.Size(36, 17);
@@ -124,7 +124,7 @@
             // 
             this.hexText.AutoSize = true;
             this.hexText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hexText.ForeColor = System.Drawing.Color.White;
+            this.hexText.ForeColor = System.Drawing.Color.Black;
             this.hexText.Location = new System.Drawing.Point(325, 44);
             this.hexText.Name = "hexText";
             this.hexText.Size = new System.Drawing.Size(36, 17);
@@ -135,7 +135,7 @@
             // 
             this.selected_B.AutoSize = true;
             this.selected_B.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selected_B.ForeColor = System.Drawing.Color.White;
+            this.selected_B.ForeColor = System.Drawing.Color.Black;
             this.selected_B.Location = new System.Drawing.Point(324, 297);
             this.selected_B.Name = "selected_B";
             this.selected_B.Size = new System.Drawing.Size(19, 17);
@@ -159,7 +159,7 @@
             // 
             this.selected_G.AutoSize = true;
             this.selected_G.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selected_G.ForeColor = System.Drawing.Color.White;
+            this.selected_G.ForeColor = System.Drawing.Color.Black;
             this.selected_G.Location = new System.Drawing.Point(324, 269);
             this.selected_G.Name = "selected_G";
             this.selected_G.Size = new System.Drawing.Size(20, 17);
@@ -178,7 +178,7 @@
             // 
             this.selected_R.AutoSize = true;
             this.selected_R.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selected_R.ForeColor = System.Drawing.Color.White;
+            this.selected_R.ForeColor = System.Drawing.Color.Black;
             this.selected_R.Location = new System.Drawing.Point(325, 237);
             this.selected_R.Name = "selected_R";
             this.selected_R.Size = new System.Drawing.Size(19, 17);
@@ -189,7 +189,7 @@
             // 
             this.hslText.AutoSize = true;
             this.hslText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hslText.ForeColor = System.Drawing.Color.White;
+            this.hslText.ForeColor = System.Drawing.Color.Black;
             this.hslText.Location = new System.Drawing.Point(327, 71);
             this.hslText.Name = "hslText";
             this.hslText.Size = new System.Drawing.Size(34, 17);
@@ -200,7 +200,7 @@
             // 
             this.hsvText.AutoSize = true;
             this.hsvText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hsvText.ForeColor = System.Drawing.Color.White;
+            this.hsvText.ForeColor = System.Drawing.Color.Black;
             this.hsvText.Location = new System.Drawing.Point(325, 98);
             this.hsvText.Name = "hsvText";
             this.hsvText.Size = new System.Drawing.Size(36, 17);
@@ -211,7 +211,7 @@
             // 
             this.cmykText.AutoSize = true;
             this.cmykText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmykText.ForeColor = System.Drawing.Color.White;
+            this.cmykText.ForeColor = System.Drawing.Color.Black;
             this.cmykText.Location = new System.Drawing.Point(314, 125);
             this.cmykText.Name = "cmykText";
             this.cmykText.Size = new System.Drawing.Size(47, 17);
@@ -226,7 +226,7 @@
             // 
             this.cielabText.AutoSize = true;
             this.cielabText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cielabText.ForeColor = System.Drawing.Color.White;
+            this.cielabText.ForeColor = System.Drawing.Color.Black;
             this.cielabText.Location = new System.Drawing.Point(504, 18);
             this.cielabText.Name = "cielabText";
             this.cielabText.Size = new System.Drawing.Size(53, 17);
@@ -237,7 +237,7 @@
             // 
             this.xyzText.AutoSize = true;
             this.xyzText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xyzText.ForeColor = System.Drawing.Color.White;
+            this.xyzText.ForeColor = System.Drawing.Color.Black;
             this.xyzText.Location = new System.Drawing.Point(522, 44);
             this.xyzText.Name = "xyzText";
             this.xyzText.Size = new System.Drawing.Size(35, 17);
@@ -248,7 +248,7 @@
             // 
             this.yuvText.AutoSize = true;
             this.yuvText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.yuvText.ForeColor = System.Drawing.Color.White;
+            this.yuvText.ForeColor = System.Drawing.Color.Black;
             this.yuvText.Location = new System.Drawing.Point(521, 70);
             this.yuvText.Name = "yuvText";
             this.yuvText.Size = new System.Drawing.Size(36, 17);
@@ -259,7 +259,7 @@
             // 
             this.ycbcrText.AutoSize = true;
             this.ycbcrText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ycbcrText.ForeColor = System.Drawing.Color.White;
+            this.ycbcrText.ForeColor = System.Drawing.Color.Black;
             this.ycbcrText.Location = new System.Drawing.Point(508, 96);
             this.ycbcrText.Name = "ycbcrText";
             this.ycbcrText.Size = new System.Drawing.Size(49, 17);
@@ -270,7 +270,7 @@
             // 
             this.lchText.AutoSize = true;
             this.lchText.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lchText.ForeColor = System.Drawing.Color.White;
+            this.lchText.ForeColor = System.Drawing.Color.Black;
             this.lchText.Location = new System.Drawing.Point(522, 122);
             this.lchText.Name = "lchText";
             this.lchText.Size = new System.Drawing.Size(35, 17);
@@ -281,8 +281,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(29)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(698, 376);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(742, 376);
             this.Controls.Add(this.lchText);
             this.Controls.Add(this.ycbcrText);
             this.Controls.Add(this.yuvText);
@@ -306,7 +306,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "main";
             this.Text = "Color Picker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.screen_color)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.screen)).EndInit();
