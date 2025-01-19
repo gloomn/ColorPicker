@@ -7,3 +7,13 @@ D:\WorkSpace\C#\ColorPicker\ColorPicker\ColorPicker\obj\Debug\ColorPicker.csproj
 D:\WorkSpace\C#\ColorPicker\ColorPicker\ColorPicker\obj\Debug\ColorPicker.csproj.CoreCompileInputs.cache
 D:\WorkSpace\C#\ColorPicker\ColorPicker\ColorPicker\obj\Debug\ColorPicker.exe
 D:\WorkSpace\C#\ColorPicker\ColorPicker\ColorPicker\obj\Debug\ColorPicker.pdb
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\ColorPicker.exe.config
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\ColorPicker.exe
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\ColorPicker.pdb
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.csproj.AssemblyReference.cache
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.main.resources
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.Properties.Resources.resources
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.csproj.GenerateResource.cache
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.csproj.CoreCompileInputs.cache
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.exe
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.pdb
