@@ -19,3 +19,7 @@ D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.exe
 D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPicker.pdb
 D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\GlobalKeyBoardHookLib.dll
 D:\WorkSpace\C#\ColorPicker\src\ColorPicker\obj\Debug\ColorPic.BF1CE39D.Up2Date
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\AdsJumboWinForm.dll
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\MetroFramework.Design.dll
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\MetroFramework.dll
+D:\WorkSpace\C#\ColorPicker\src\ColorPicker\bin\Debug\MetroFramework.Fonts.dll

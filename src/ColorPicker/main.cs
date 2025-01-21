@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ColorPicker
 {
@@ -19,17 +21,20 @@ namespace ColorPicker
             InitializeComponent();
             screen_timer.Enabled = true;
             Load += main_Load;
+            color_list.DrawItem += listBox_DrawItem;
             // GlobalKeyboardHook 인스턴스 생성
             // Initialize global keyboard hook
             _keyboardHook = new GlobalKeyboardHook();
             _keyboardHook.KeyDownEvent += OnGlobalKeyDown;
-
+            colorComboBox.SelectedIndex = 0;
             this.FormClosing += MainForm_FormClosing;
+            color_list.DrawMode = DrawMode.OwnerDrawFixed; //Form 초기화 시 ListBox 설정
         }
 
         private GlobalKeyboardHook _keyboardHook;
         private delegate void SetColorDelegate(int x, int y, Color color);
         private Thread thread;
+        private bool isMousePressed = false;
 
         private void ProcessThread()
         {
@@ -54,14 +59,23 @@ namespace ColorPicker
 
         private void OnGlobalKeyDown(Keys key)
         {
-            // Check for a specific key combination (e.g., Ctrl+Shift+C)
-            if (key == Keys.C && ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift))
+            if (key == Keys.X)
             {
-                // Capture the current screen color under the mouse
+                // 마우스 위치의 색상 얻기
                 var color = GetColorAtCursor();
 
-                // Display the color in a message box (or update a UI element)
-                MessageBox.Show($"Color at cursor: {color}", "Color Picker", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // 선택된 색상을 표시
+                this.selected_color.BackColor = color;
+                this.selected_R.Text = "R: " + color.R;
+                this.selected_G.Text = "G: " + color.G;
+                this.selected_B.Text = "B: " + color.B;
+                this.scroll_r.Value = color.R;
+                this.scroll_g.Value = color.G;
+                this.scroll_b.Value = color.B;
+                gradient_box.Invalidate();
+
+                // 색상 리스트에 추가
+                color_list.Items.Add(color);
             }
         }
 
@@ -80,6 +94,91 @@ namespace ColorPicker
 
                 return bitmap.GetPixel(0, 0);
             }
+        }
+
+        private void listBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // 항목 인덱스와 선택 상태 확인
+            if (e.Index < 0) return;
+
+            // 아이템의 색상 값 얻기
+            var color = (Color)color_list.Items[e.Index];
+
+            // 항목 배경색을 설정 (선택된 항목일 경우 다른 색으로)
+            e.Graphics.FillRectangle(new SolidBrush(e.State.HasFlag(DrawItemState.Selected) ? Color.LightGray : color), e.Bounds);
+
+            // RGB 값을 텍스트로 출력 (콤보박스에 맞는 텍스트로 변환)
+            string colorText = GetColorText(color);
+            e.Graphics.DrawString(colorText, e.Font, Brushes.Black, e.Bounds.Left, e.Bounds.Top);
+        }
+
+        private void colorComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // ListBox 항목들을 즉시 업데이트
+            UpdateListBoxItems();
+
+            // 리스트박스를 강제로 다시 그리기
+            color_list.Invalidate();
+        }
+
+        private void UpdateListBoxItems()
+        {
+            // ListBox에 있는 항목들을 순회하며 텍스트를 업데이트
+            for (int i = 0; i < color_list.Items.Count; i++)
+            {
+                var color = (Color)color_list.Items[i];
+                string colorText = GetColorText(color); // 선택된 색상 모델에 맞게 변환된 텍스트
+                color_list.Items[i] = colorText; // 항목 텍스트 변경
+            }
+        }
+
+        private string GetColorText(Color color)
+        {
+            string colorText = string.Empty;
+            var (HSL_H, HSL_S, HSL_L) = RGBToHSL(color.R, color.G, color.B);
+            var (HSV_H, HSV_S, HSV_V) = RGBToHSV(color.R, color.G, color.B);
+            var (CMYK_C, CMYK_M, CMYK_Y, CMYK_K) = RGBToCMYK(color.R, color.G, color.B);
+            var (CIELAB_L, CIELAB_A, CIELAB_B) = RGBToCIELAB(color.R, color.G, color.B);
+            var (XYZ_X, XYZ_Y, XYZ_Z) = RGBToXYZ(color.R, color.G, color.B);
+            var (YUV_Y, YUV_U, YUV_V) = RGBToYUV(color.R, color.G, color.B);
+            var (YCbCr_Y, YCbCr_Cb, YCbCr_Cr) = RGBToYCbCr(color.R, color.G, color.B);
+            var (LCH_L, LCH_C, LCH_H) = RGBToLCH(color.R, color.G, color.B);
+
+            switch (colorComboBox.SelectedItem.ToString())
+            {
+                case "RGB":
+                    colorText = color.R.ToString() + " , " + color.G.ToString() + " , " + color.B.ToString();
+                    break;
+                case "HEX":
+                    colorText = GetHexadecimalString(color.R).Substring(0, 2) + GetHexadecimalString(color.G).Substring(0, 2) + GetHexadecimalString(color.B).Substring(0, 2);
+                    break;
+                case "HSL":
+                    colorText = HSL_H.ToString() + "°" + " , " + HSL_S.ToString() + "%" + ", " + HSL_L.ToString() + "%";
+                    break;
+                case "HSV":
+                    colorText = HSV_H.ToString() + "°" + " , " + HSV_S.ToString() + "%" + ", " + HSV_V.ToString() + "%";
+                    break;
+                case "CMYK":
+                    colorText = CMYK_C.ToString() + " , " + CMYK_M.ToString() + " , " + CMYK_Y.ToString() + " , " + CMYK_K.ToString();
+                    break;
+                case "CIELAB":
+                    colorText = CIELAB_L.ToString() + " , " + CIELAB_A.ToString() + " , " + CIELAB_B.ToString();
+                    break;
+                case "XYZ":
+                    colorText = XYZ_X.ToString() + " , " + XYZ_Y.ToString() + " , " + XYZ_Z.ToString();
+                    break;
+                case "YUV":
+                    colorText = YUV_Y.ToString() + " , " + YUV_U.ToString() + " , " + YUV_V.ToString();
+                    break;
+                case "YCbCr":
+                    colorText = YCbCr_Y.ToString() + " , " + YCbCr_Cb.ToString() + " , " + YCbCr_Cr.ToString();
+                    break;
+                case "LCH":
+                    colorText = LCH_L.ToString() + " , " + LCH_C.ToString() + " , " + LCH_H.ToString();
+                    break;
+            }
+
+            return colorText;
         }
 
         private string GetHexadecimalString(int value)
@@ -415,7 +514,7 @@ namespace ColorPicker
                 this.screen_color.BackColor = color;
                 this.rgbText.Text = "RGB:   " + color.R.ToString() + " , " + color.G.ToString() + " , " + color.B.ToString();
                 this.hexText.Text = "HEX:   " + GetHexadecimalString(color.R).Substring(0, 2) + GetHexadecimalString(color.G).Substring(0, 2) + GetHexadecimalString(color.B).Substring(0, 2);
-                this.hslText.Text = "HSL:   " + HSL_H.ToString() + "°" + " , " + HSL_S.ToString() + "%" +  ", "+ HSL_L.ToString() + "%";
+                this.hslText.Text = "HSL:   " + HSL_H.ToString() + "°" + " , " + HSL_S.ToString() + "%" + ", " + HSL_L.ToString() + "%";
                 this.hsvText.Text = "HSV:   " + HSV_H.ToString() + "°" + " , " + HSV_S.ToString() + "%" + ", " + HSV_V.ToString() + "%";
                 this.cmykText.Text = "CMYK:   " + CMYK_C.ToString() + " , " + CMYK_M.ToString() + " , " + CMYK_Y.ToString() + " , " + CMYK_K.ToString();
                 this.cielabText.Text = "CIELAB:   " + CIELAB_L.ToString() + " , " + CIELAB_A.ToString() + " , " + CIELAB_B.ToString();
@@ -474,10 +573,22 @@ namespace ColorPicker
             g.DrawLine(Pens.Red, screen_color.Size.Width - 1, 0, screen_color.Size.Width - 1, screen_color.Size.Width - 1);
         }
 
+        private void selected_color_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+
+            g.DrawLine(Pens.Red, 0, 0, selected_color.Size.Width, 0);
+            g.DrawLine(Pens.Red, 0, 0, 0, selected_color.Size.Width);
+            g.DrawLine(Pens.Red, 0, selected_color.Size.Height - 1, selected_color.Size.Width - 1, selected_color.Size.Height - 1);
+            g.DrawLine(Pens.Red, selected_color.Size.Width - 1, 0, selected_color.Size.Width - 1, selected_color.Size.Width - 1);
+        }
+
+
         private void main_Load(object sender, EventArgs e)
         {
             this.thread = new Thread(new ThreadStart(ProcessThread));
             this.thread.Start();
+            bannerAds.ShowAd(139, 462, "3twn3xepef2g");
         }
 
         private Color GetMousePointColor(Point mousePoint)
@@ -487,6 +598,133 @@ namespace ColorPicker
             Graphics graphics = Graphics.FromImage(bitmap);
             graphics.CopyFromScreen(mousePoint.X, mousePoint.Y, 0, 0, size);
             return bitmap.GetPixel(0, 0);
+        }
+
+        private void scroll_r_Scroll(object sender, ScrollEventArgs e)
+        {
+            this.selected_color.BackColor = Color.FromArgb(scroll_r.Value, scroll_g.Value, scroll_b.Value);
+            this.selected_R.Text = "R: " + scroll_r.Value;
+            gradient_box.Invalidate();
+        }
+
+        private void scroll_g_Scroll(object sender, ScrollEventArgs e)
+        {
+            this.selected_color.BackColor = Color.FromArgb(scroll_r.Value, scroll_g.Value, scroll_b.Value);
+            this.selected_G.Text = "G: " + scroll_g.Value;
+            gradient_box.Invalidate();
+        }
+
+        private void scroll_b_Scroll(object sender, ScrollEventArgs e)
+        {
+            this.selected_color.BackColor = Color.FromArgb(scroll_r.Value, scroll_g.Value, scroll_b.Value);
+            this.selected_B.Text = "B: " + scroll_b.Value;
+            gradient_box.Invalidate();
+        }
+
+        private void gradient_box_Paint(object sender, PaintEventArgs e)
+        {
+            DrawGradient(e.Graphics, gradient_box.ClientRectangle);
+
+            var g = e.Graphics;
+
+            g.DrawLine(Pens.Red, 0, 0, gradient_box.Size.Width, 0);
+            g.DrawLine(Pens.Red, 0, 0, 0, gradient_box.Size.Width);
+            g.DrawLine(Pens.Red, 0, gradient_box.Size.Height - 1, gradient_box.Size.Width - 1, gradient_box.Size.Height - 1);
+            g.DrawLine(Pens.Red, gradient_box.Size.Width - 1, 0, gradient_box.Size.Width - 1, gradient_box.Size.Width - 1);
+        }
+
+        private void DrawGradient(Graphics graphics, Rectangle rect)
+        {
+            Color middleColor = Color.FromArgb(scroll_r.Value, scroll_g.Value, scroll_b.Value);
+            // 중간색: 시작 색상보다 더 밝게 설정
+            Color startColor = Color.FromArgb(
+                Math.Min(255, scroll_r.Value + 60), // 빨간색 값을 50 증가 (255를 초과하지 않도록 제한)
+                Math.Min(255, scroll_g.Value + 60),
+                Math.Min(255, scroll_b.Value + 60)
+            );
+            // 끝 색상: 시작 색상보다 어둡게 설정
+            Color endColor = Color.FromArgb(
+                Math.Max(0, scroll_r.Value - 60),  // 빨간색 값을 50 감소 (0보다 작아지지 않도록 제한)
+                Math.Max(0, scroll_g.Value - 60),
+                Math.Max(0, scroll_b.Value - 60)
+            );
+
+            // LinearGradientBrush로 그라디언트 생성
+            using (LinearGradientBrush brush = new LinearGradientBrush(
+                rect,
+                startColor,
+                endColor,
+                LinearGradientMode.Horizontal)) // 수평 그라디언트
+            {
+                // 중간 색상을 추가
+                ColorBlend colorBlend = new ColorBlend
+                {
+                    Colors = new[] { startColor, middleColor, endColor },
+                    Positions = new[] { 0f, 0.5f, 1f } // 시작, 중간, 끝 비율
+                };
+                brush.InterpolationColors = colorBlend;
+
+                // Graphics로 그라디언트 채우기
+                graphics.FillRectangle(brush, rect);
+            }
+        }
+
+        private void gradient_box_Click(object sender, EventArgs e)
+        {
+            var color = GetColorAtCursor();
+
+            this.selected_color.BackColor = color;
+            this.selected_R.Text = "R: " + color.R;
+            this.selected_G.Text = "G: " + color.G;
+            this.selected_B.Text = "B: " + color.B;
+            this.scroll_r.Value = color.R;
+            this.scroll_g.Value = color.G;
+            this.scroll_b.Value = color.B;
+        }
+
+        private void gradient_box_MouseDown(object sender, MouseEventArgs e)
+        {
+            isMousePressed = true;
+        }
+
+        private void gradient_box_MouseUp(object sender, MouseEventArgs e)
+        {
+            isMousePressed = false;
+        }
+        private DateTime lastColorChangeTime = DateTime.MinValue;
+        private TimeSpan colorChangeInterval = TimeSpan.FromMilliseconds(50);
+        private void gradient_box_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isMousePressed)
+            {
+                var currentTime = DateTime.Now;
+
+                // 일정 시간 간격으로 색상만 변경하도록 제한
+                if (currentTime - lastColorChangeTime > colorChangeInterval)
+                {
+                    var color = GetColorAtCursor();
+
+                    // 선택된 색상이 이전 색상과 같다면 변경하지 않음
+                    if (this.selected_color.BackColor != color)
+                    {
+                        this.selected_color.BackColor = color;
+                        this.selected_R.Text = "R: " + color.R;
+                        this.selected_G.Text = "G: " + color.G;
+                        this.selected_B.Text = "B: " + color.B;
+                        this.scroll_r.Value = color.R;
+                        this.scroll_g.Value = color.G;
+                        this.scroll_b.Value = color.B;
+                    }
+
+                    // 마지막 색상 변경 시간을 갱신
+                    lastColorChangeTime = currentTime;
+                }
+            }
+        }
+
+        private void coppyButton_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(selectedColorText.Text);
         }
     }
 }
